@@ -1,10 +1,5 @@
-import React from "react";
-function TodoSearch() {
 
-  const [searchValue, setSearchValue] = React.useState('');
-
-  console.log(searchValue);
-
+function TodoSearch({searchValue,setSearchValue}) {
     return (
       <input 
         type="text" 
@@ -12,11 +7,8 @@ function TodoSearch() {
         placeholder="buscar" 
         value={searchValue}
         onChange={(event) => {
-
           setSearchValue(event.target.value);
-
         }}
-
         />
     );
   }
