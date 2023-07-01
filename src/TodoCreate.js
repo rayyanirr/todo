@@ -10,6 +10,7 @@ function TodoCreate({todos,setTodos}) {
   const newTodos = [...todos];
   const tareaNueva = {text : tarea, completed : false }
   newTodos.push(tareaNueva)
+  localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
   setTodos(newTodos)
   setTareaValue("")
 
