@@ -69,9 +69,9 @@ function App() {
 
                 <img
                   src={pensando}
-                  className="img-fluid mx-auto d-block"
+                  className="img-fluid mx-auto d-block mb-2"
                   alt="imagen de usuario pensando"
-                  width={400}
+                  width={350}
                 />
               </div>
             </div>
