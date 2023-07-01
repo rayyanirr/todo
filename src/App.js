@@ -15,10 +15,8 @@ const defaultTodos = [
 ];
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState("");
-  const [deleteValue, setDeleteValue] = React.useState("");
   const [todos, setTodos] = React.useState(defaultTodos);
- 
+  const [searchValue, setSearchValue] = React.useState("");
  
 
   const completedTodo = todos.filter((todo) => !!todo.completed).length;
@@ -27,9 +25,32 @@ function App() {
   const filterTodo = todos.filter((todo) =>
     todo.text.toLowerCase().includes(searchValue.toLowerCase())
   );
+  
 
+ const completeTodo = (text) => {
 
-  todos.splice(deleteValue, 1)
+  const newTodos = [...todos];
+  const todoIndex = newTodos.findIndex(
+    (todo) => todo.text === text
+  )
+  newTodos[todoIndex].completed = !newTodos[todoIndex].completed
+  setTodos(newTodos)
+
+ }
+
+ const deleteTodo = (text) => {
+
+  const newTodos = [...todos];
+  const todoIndex = newTodos.findIndex(
+    (todo) => todo.text === text
+  )
+  newTodos.splice(todoIndex,1)
+
+  setTodos(newTodos)
+
+ }
+
+ 
 
   return (
     <>
@@ -43,7 +64,7 @@ function App() {
                 </h2>
 
                 <div className="m-5 ">
-                  <TodoCreate />
+                  <TodoCreate setTodos={setTodos} todos={todos}/>
                 </div>
 
                 <img
@@ -67,15 +88,13 @@ function App() {
             </div>
 
             <TodoList>
-              {filterTodo.map((todo,index) => (
+              {filterTodo.map((todo) => (
                 <TodoItem
-                  id={index}
                   key={todo.text}
                   text={todo.text}
                   completed={todo.completed}
-                  deleteValue={deleteValue}
-                  setDeleteValue={setDeleteValue}
-                  
+                  onCompleted={() => completeTodo(todo.text)}
+                  onDelete = {() => deleteTodo(todo.text)}
                 />
               ))}
             </TodoList>

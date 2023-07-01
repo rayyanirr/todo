@@ -1,6 +1,20 @@
-import { FaSearch } from "react-icons/fa";
+import React from "react";
+import { FaPlusCircle } from "react-icons/fa";
 
-function TodoCreate() {
+function TodoCreate({todos,setTodos}) {
+
+  const [tareaValue, setTareaValue] = React.useState("");
+
+  const addTodos = (tarea) => {
+   
+  const newTodos = [...todos];
+  const tareaNueva = {text : tarea, completed : false }
+  newTodos.push(tareaNueva)
+  setTodos(newTodos)
+  setTareaValue("")
+
+  }
+
   return (
     <div className="m-0 row justify-content-center align-items-center">
       <div className="col-auto">
@@ -9,11 +23,15 @@ function TodoCreate() {
           className="form-control"
           id="inputPassword2"
           placeholder="Ingrese tarea"
+          value={tareaValue}
+          onChange={(event) => {
+            setTareaValue(event.target.value);
+         }}
         ></input>
       </div>
       <div className="col-auto">
-        <button type="submit" className="btn btn-primary mb-3 mt-3">
-          <FaSearch />
+        <button type="submit" className="btn btn-primary mb-3 mt-3" onClick={() => addTodos(tareaValue)}>
+          <FaPlusCircle />
         </button>
       </div>
     </div>
