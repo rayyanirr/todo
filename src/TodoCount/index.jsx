@@ -1,18 +1,14 @@
+import React from "react";
 import { TodoContext } from "../TodoContext";
 
 function TodoCount() {
-    return (
-      <TodoContext.Consumer>
-        {({
-          totalTodos, completedTodo 
-        }) => (
-          <h2 className="text-center mt-4">
-              Completaste {completedTodo} de {totalTodos} TODOs
-          </h2>
-        )}
-      </TodoContext.Consumer>
-      
-    );
-  }
+  const { completedTodo, totalTodos } = React.useContext(TodoContext);
 
-  export { TodoCount }
+  return (
+    <h2 className="text-center mt-4">
+      Completaste {completedTodo} de {totalTodos} TODOs
+    </h2>
+  );
+}
+
+export { TodoCount };
