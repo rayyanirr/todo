@@ -70,10 +70,6 @@ function AppUi({saveTodos,todos,completedTodo,totalTodos,searchValue,setSearchVa
                 </div>
     
                 <TodoList>
-                 {loading && <p>Estamos Cargando... </p> }
-                 {error && <p>Error al Cargar </p> }
-                 {(!loading && todos.length === 0) && <p>Crea tu primer Todos... </p> }
-
                   {filterTodo.map((todo) => (
                     <TodoItem
                       key={todo.text}
