@@ -7,10 +7,12 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.10.1",
+    "react-loading-skeleton": "^3.3.1",
     "svgo": "^3.0.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "react-scripts": "^5.0.1"
   },
   "scripts": {
