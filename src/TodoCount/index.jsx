@@ -1,8 +1,17 @@
-function TodoCount({total, completed}) {
+import { TodoContext } from "../TodoContext";
+
+function TodoCount() {
     return (
-      <h2 className="text-center mt-4">
-        Completaste {completed} de {total} TODOs
-      </h2>
+      <TodoContext.Consumer>
+        {({
+          totalTodos, completedTodo 
+        }) => (
+          <h2 className="text-center mt-4">
+              Completaste {completedTodo} de {totalTodos} TODOs
+          </h2>
+        )}
+      </TodoContext.Consumer>
+      
     );
   }
 

@@ -1,6 +1,3 @@
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
-
 import { TodoCount } from "../TodoCount";
 import { TodoSearch } from "../TodoSearch";
 import { TodoCreate } from "../TodoCreate";
@@ -12,20 +9,9 @@ import { TodosEmpty } from "../TodosEmpty";
 
 import Pensando from "../images/pensando.jpg";
 
+import { TodoContext } from "../TodoContext";
 
-function AppUi({
-  saveTodos,
-  todos,
-  completedTodo,
-  totalTodos,
-  searchValue,
-  setSearchValue,
-  filterTodo,
-  completeTodo,
-  deleteTodo,
-  loading,
-  error,
-}) {
+function AppUi() {
   return (
     <>
       <div className="container mt-3">
@@ -38,7 +24,7 @@ function AppUi({
                 </h2>
 
                 <div className="m-5 ">
-                  <TodoCreate setTodos={saveTodos} todos={todos} />
+                  <TodoCreate />
                 </div>
 
                 <img
@@ -52,30 +38,38 @@ function AppUi({
           </div>
 
           <div className="col-md-6 temaDerecho ">
-            <TodoCount completed={completedTodo} total={totalTodos} />
+            <TodoCount />
 
             <div className="m-5">
-              <TodoSearch
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-              />
+              <TodoSearch />
             </div>
 
-            <TodoList>
-              {loading && <TodosLoading />}
-              {error && <TodosError />}
-              {!loading && todos.length === 0 && <TodosEmpty />}
+            <TodoContext.Consumer>
+              {({ 
+                todos,
+                filterTodo,
+                completeTodo,
+                deleteTodo,
+                loading,
+                error,
+              }) => (
+                <TodoList>
+                  {loading && <TodosLoading />}
+                  {error && <TodosError />}
+                  {!loading && todos.length === 0 && <TodosEmpty />}
 
-              {filterTodo.map((todo) => (
-                <TodoItem
-                  key={todo.text}
-                  text={todo.text}
-                  completed={todo.completed}
-                  onCompleted={() => completeTodo(todo.text)}
-                  onDelete={() => deleteTodo(todo.text)}
-                />
-              ))}
-            </TodoList>
+                  {filterTodo.map((todo) => (
+                    <TodoItem
+                      key={todo.text}
+                      text={todo.text}
+                      completed={todo.completed}
+                      onCompleted={() => completeTodo(todo.text)}
+                      onDelete={() => deleteTodo(todo.text)}
+                    />
+                  ))}
+                </TodoList>
+              )}
+            </TodoContext.Consumer>
           </div>
         </div>
       </div>
