@@ -4,9 +4,12 @@ import { TodoCreate } from "../TodoCreate";
 import { TodoList } from "../TodoList";
 import { TodoItem } from "../TodoItem";
 
-import pensando from "../images/pensando.jpg";
+import Pensando from "../images/pensando.jpg";
+import Add from "../images/add.jpg";
+import Cargando from "../images/cargando.png";
+import Error from "../images/error.png";
 
-function AppUi({saveTodos,todos,completedTodo,totalTodos,searchValue,setSearchValue,filterTodo,completeTodo,deleteTodo}) 
+function AppUi({saveTodos,todos,completedTodo,totalTodos,searchValue,setSearchValue,filterTodo,completeTodo,deleteTodo,loading,error}) 
 {
     return (
         <>
@@ -22,13 +25,36 @@ function AppUi({saveTodos,todos,completedTodo,totalTodos,searchValue,setSearchVa
                     <div className="m-5 ">
                       <TodoCreate setTodos={saveTodos} todos={todos} />
                     </div>
-    
-                    <img
-                      src={pensando}
+                    
+                    {loading && <img
+                      src={Cargando}
                       className="img-fluid mx-auto d-block mb-2"
-                      alt="imagen de usuario pensando"
+                      alt="imagen de carga de todos"
                       width={350}
-                    />
+                    /> }
+
+
+                    {error && <img
+                      src={Error}
+                      className="img-fluid mx-auto d-block mb-2"
+                      alt="imagen de error"
+                      width={350}
+                    />}
+                    
+                    {(!loading && todos.length === 0) && <img
+                      src={Add}
+                      className="img-fluid mx-auto d-block mb-2"
+                      alt="imagen de crea nuevo item"
+                      width={350}
+                    /> }
+
+                    {(!loading && todos.length >= 1) && <img
+                      src={Pensando}
+                      className="img-fluid mx-auto d-block mb-2"
+                      alt="imagen de carga de todos"
+                      width={350}
+                    /> }
+                    
                   </div>
                 </div>
               </div>
@@ -44,6 +70,10 @@ function AppUi({saveTodos,todos,completedTodo,totalTodos,searchValue,setSearchVa
                 </div>
     
                 <TodoList>
+                 {loading && <p>Estamos Cargando... </p> }
+                 {error && <p>Error al Cargar </p> }
+                 {(!loading && todos.length === 0) && <p>Crea tu primer Todos... </p> }
+
                   {filterTodo.map((todo) => (
                     <TodoItem
                       key={todo.text}
